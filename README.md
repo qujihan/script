@@ -9,4 +9,4 @@
 在win11添加小鹤双拼
 
 3. code.reg
-在win11添加code到右键
+在win11添加code到右键(note:使用前应更改路径)

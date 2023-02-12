@@ -1,0 +1,1 @@
+sudo netsh winsock reset

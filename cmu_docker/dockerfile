@@ -1,0 +1,53 @@
+# How to use
+# docker build -t cmu15445 --build-arg arch=amd64 --build-arg name=qujihan .
+# docker run --name cmu15445 -it cmu15445
+# docker exec -it cmu15445 /bin/bash
+
+# Note:
+# this dockerfile use clash as the default proxy. so the prot is 7890
+# if you are use others. you can change it
+
+
+
+FROM ubuntu:22.04
+ARG arch=amd64
+ARG name=qujihan
+
+
+# set workdir
+WORKDIR /root/
+
+
+# change sources
+RUN if [ ${arch} = amd64 ]; \
+    then \
+    echo deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy main restricted universe multiverse > /etc/apt/sources.list; \
+    echo deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-updates main restricted universe multiverse >> /etc/apt/sources.list; \
+    echo deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-backports main restricted universe multiverse >> /etc/apt/sources.list; \
+    echo deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-security main restricted universe multiverse >> /etc/apt/sources.list; \
+    else \
+    echo deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ jammy main restricted universe multiverse > /etc/apt/sources.list; \
+    echo deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ jammy-updates main restricted universe multiverse >> /etc/apt/sources.list; \
+    echo deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ jammy-backports main restricted universe multiverse >> /etc/apt/sources.list; \
+    echo deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ jammy-security main restricted universe multiverse >> /etc/apt/sources.list; \
+    fi
+
+# install apps
+RUN apt update &&\
+    apt install -y curl git &&\
+    apt clean --dry-run
+
+
+RUN echo PS1=\"[${name}@cmu15445lab \\W] \\$ \" >> .bashrc
+
+
+# proxy set
+RUN echo "HOST_IP=$(grep -oP '(?<=nameserver\ ).*' /etc/resolv.conf)" >> .bashrc &&\
+    echo "PROXY_ADDR=\"http://\$HOST_IP:7890\"" >> .bashrc &&\
+    echo "HTTP_PROXY=\"\$PORXY_ADDR\"" >> .bashrc &&\
+    echo "HTTPS_PROXY=\"\$PORXY_ADDR\"" >> .bashrc &&\
+    echo "alias cip=\"curl cip.cc\"" >> .bashrc &&\
+    /bin/bash -c "source .bashrc"
+
+# set cmu15445
+ADD autoset.sh .

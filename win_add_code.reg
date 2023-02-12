@@ -1,0 +1,27 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\*\shell\VSCode]
+@="Open with Code"
+"Icon"="C:\\Scoop\\apps\\vscode\\1.74.2\\Code.exe"
+    
+[HKEY_CLASSES_ROOT\*\shell\VSCode\command]
+@="\"C:\\Scoop\\apps\\vscode\\1.74.2\\Code.exe\" \"%1\""
+
+
+
+Windows Registry Editor Version 5.00
+[HKEY_CLASSES_ROOT\Directory\shell\VSCode]
+@="Open with Code"
+"Icon"="C:\\Scoop\\apps\\vscode\\1.74.2\\Code.exe"
+    
+[HKEY_CLASSES_ROOT\Directory\shell\VSCode\command]
+@="\"C:\\Scoop\\apps\\vscode\\1.74.2\\Code.exe\" \"%V\""
+
+
+Windows Registry Editor Version 5.00
+[HKEY_CLASSES_ROOT\Directory\Background\shell\VSCode]
+@="Open with Code"
+"Icon"="C:\\Scoop\\apps\\vscode\\1.74.2\\Code.exe"
+
+[HKEY_CLASSES_ROOT\Directory\Background\shell\VSCode\command]
+@="\"C:\\Scoop\\apps\\vscode\\1.74.2\\Code.exe\" \"%V\""

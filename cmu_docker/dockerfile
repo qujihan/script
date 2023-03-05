@@ -1,14 +1,3 @@
-# How to use
-# docker build -t cmu15445 --build-arg arch=amd64 --build-arg name=qujihan .
-# docker run --name cmu15445 -it cmu15445
-# docker exec -it cmu15445 /bin/bash
-
-# Note:
-# this dockerfile use clash as the default proxy. so the prot is 7890
-# if you are use others. you can change it
-
-
-
 FROM ubuntu:22.04
 ARG arch=amd64
 ARG name=qujihan
@@ -50,4 +39,4 @@ RUN echo "HOST_IP=$(grep -oP '(?<=nameserver\ ).*' /etc/resolv.conf)" >> .bashrc
     /bin/bash -c "source .bashrc"
 
 # set cmu15445
-ADD autoset.sh .
+ADD install.sh .
